@@ -1,0 +1,51 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "create-block/weather-block",
+	"version": "0.1.0",
+	"title": "Weather Block",
+	"category": "widgets",
+	"icon": "cloud",
+	"description": "Display current weather conditions for a specified location using OpenWeatherMap API.",
+	"keywords": ["weather", "forecast", "temperature", "climate"],
+	"attributes": {
+		"location": {
+			"type": "string",
+			"default": ""
+		},
+		"units": {
+			"type": "string",
+			"default": "metric",
+			"enum": ["metric", "imperial"]
+		},
+		"displayMode": {
+			"type": "string",
+			"default": "auto",
+			"enum": ["light", "dark", "auto"]
+		},
+		"weatherData": {
+			"type": "object",
+			"default": null
+		}
+	},
+	"example": {
+		"attributes": {
+			"location": "New York",
+			"units": "metric",
+			"displayMode": "light"
+		}
+	},
+	"supports": {
+		"html": false,
+		"align": ["left", "center", "right"],
+		"spacing": {
+			"margin": true,
+			"padding": true
+		}
+	},
+	"textdomain": "weather-block",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js"
+}

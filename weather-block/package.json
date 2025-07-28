@@ -1,0 +1,26 @@
+{
+	"name": "weather-block",
+	"version": "0.1.0",
+	"description": "Example block scaffolded with Create Block tool.",
+	"author": "The WordPress Contributors",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build --blocks-manifest",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"env:start": "wp-env start",
+    "env:stop": "wp-env stop",
+    "test:php": "wp-env run phpunit -- --configuration phpunit.xml.dist",
+    "test:js": "wp-env run tests-js",
+    "test:e2e": "wp-env run tests-e2e",
+		"packages-update": "wp-scripts packages-update",
+		"plugin-zip": "wp-scripts plugin-zip",
+		"start": "wp-scripts start --blocks-manifest"
+	},
+	"devDependencies": {
+		"@wordpress/env": "^10.27.0",
+		"@wordpress/scripts": "^30.20.0"
+	}
+}

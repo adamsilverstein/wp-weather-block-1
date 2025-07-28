@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",()=>{document.querySelectorAll(".wp-block-create-block-weather-block").forEach(e=>{"auto"===(e.dataset.displayMode||"auto")&&(window.matchMedia("(prefers-color-scheme: dark)").matches?e.classList.add("is-dark-mode"):e.classList.remove("is-dark-mode"))})});

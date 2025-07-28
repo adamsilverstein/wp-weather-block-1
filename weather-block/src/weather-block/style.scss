@@ -1,0 +1,127 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-create-block-weather-block {
+	--wb-background-color: #f0f4f8;
+	--wb-text-color: #333;
+	--wb-border-color: #dce6f0;
+	--wb-header-color: #4a5568;
+	--wb-temp-color: #2d3748;
+	--wb-subtle-text-color: #718096;
+
+	background-color: var(--wb-background-color);
+	color: var(--wb-text-color);
+	border: 1px solid var(--wb-border-color);
+	border-radius: 8px;
+	padding: 1.5em;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+	transition: background-color 0.3s, color 0.3s;
+
+	&.weather-block--dark,
+	&.is-dark-mode {
+		--wb-background-color: #2d3748;
+		--wb-text-color: #e2e8f0;
+		--wb-border-color: #4a5568;
+		--wb-header-color: #a0aec0;
+		--wb-temp-color: #f7fafc;
+		--wb-subtle-text-color: #a0aec0;
+	}
+
+	@media (prefers-color-scheme: dark) {
+		&.weather-block--auto {
+			--wb-background-color: #2d3748;
+			--wb-text-color: #e2e8f0;
+			--wb-border-color: #4a5568;
+			--wb-header-color: #a0aec0;
+			--wb-temp-color: #f7fafc;
+			--wb-subtle-text-color: #a0aec0;
+		}
+	}
+
+	.weather-block__placeholder,
+	.weather-block__loading,
+	.weather-block__error {
+		text-align: center;
+		padding: 1em;
+		.weather-block__icon {
+			font-size: 3em;
+			margin-bottom: 0.25em;
+		}
+		h3 {
+			margin: 0 0 0.5em;
+			font-size: 1.25em;
+			color: var(--wb-header-color);
+		}
+		p {
+			margin: 0;
+			font-size: 0.9em;
+			color: var(--wb-subtle-text-color);
+		}
+	}
+
+	.weather-block__loading {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1em;
+	}
+
+	.weather-block__content {
+		display: grid;
+		grid-template-areas:
+			'header header'
+			'temp description'
+			'temp humidity';
+		grid-template-columns: 1fr 1fr;
+		align-items: center;
+		gap: 0.5em 1.5em;
+	}
+
+	.weather-block__header {
+		grid-area: header;
+		display: flex;
+		align-items: center;
+		gap: 0.75em;
+		margin-bottom: 0.5em;
+	}
+
+	.weather-block__icon {
+		font-size: 2.5em;
+		line-height: 1;
+	}
+
+	.weather-block__location {
+		h3 {
+			margin: 0;
+			font-size: 1.5em;
+			font-weight: 600;
+			color: var(--wb-header-color);
+		}
+	}
+
+	.weather-block__temperature {
+		grid-area: temp;
+		font-size: 3.5em;
+		font-weight: 700;
+		color: var(--wb-temp-color);
+		line-height: 1;
+		text-align: center;
+	}
+
+	.weather-block__description {
+		grid-area: description;
+		font-size: 1.1em;
+		font-weight: 500;
+		color: var(--wb-text-color);
+	}
+
+	.weather-block__humidity {
+		grid-area: humidity;
+		font-size: 0.9em;
+		color: var(--wb-subtle-text-color);
+	}
+}
