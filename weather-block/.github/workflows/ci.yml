@@ -1,0 +1,64 @@
+name: Weather Block CI
+
+on:
+  push:
+    branches: ["**"]
+  pull_request:
+    branches: ["**"]
+
+jobs:
+  php-tests:
+    name: PHP Lint, Static Analysis, and Unit Tests
+    runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: wordpress_test
+        ports: [ '3306:3306' ]
+        options: --health-cmd="mysqladmin ping --silent" --health-interval=10s --health-timeout=5s --health-retries=3
+    env:
+      WP_ENV_PHP_VERSION: 7.4
+      WP_TESTS_DB_HOST: 127.0.0.1
+      WP_TESTS_DB_USER: root
+      WP_TESTS_DB_PASSWORD: root
+      WP_TESTS_DB_NAME: wordpress_test
+      WP_TESTS_DOMAIN: "localhost"
+      WP_TESTS_EMAIL: "admin@localhost.dev"
+      WP_TESTS_TITLE: "Test Blog"
+      WP_TESTS_ADMIN_USER: "admin"
+      WP_TESTS_ADMIN_PASSWORD: "password"
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          tools: composer, phpunit, phpcs, phpstan
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Lint PHP (PHPCS)
+        run: vendor/bin/phpcs --standard=WordPress .
+      - name: Static Analysis (PHPStan)
+        run: vendor/bin/phpstan analyse --level=5 weather-block.php tests
+      - name: Run PHPUnit
+        run: |
+          npm install -g @wordpress/env
+          wp-env start
+          wp-env run phpunit -- --configuration phpunit.xml.dist
+  js-tests:
+    name: JS Lint and Unit Tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint JS (ESLint)
+        run: npm run lint:js
+      - name: Run JS Unit Tests (Jest)
+        run: npm run test:js
